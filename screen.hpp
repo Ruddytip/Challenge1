@@ -4,7 +4,7 @@
 enum ESymbols{
     Empty = ' ',
     Wall = '#',
-    Body = '!',
+    Body = 'S',
     Ball = '*',
     Error = '~'
 };
@@ -19,25 +19,28 @@ namespace COLORS{
     const std::string DEFAULT = "\x1B[0m";
 };
 
-struct SPixel{
-    char Symbol;
-    std::string Color;
-};
-
 class CScreen{
 private:
     uint8_t Width, Height;
-    std::string* ScreenBuffer;
+    std::string* sScreenBuffer;
+    struct SPixel{
+        char Symbol;
+        std::string Color;
+    }** pBuffer;
+    SPixel getPixel(uint8_t x, uint8_t y);
 public:
-    CScreen(int size_x, int size_y);
+    CScreen(uint8_t size_x, uint8_t size_y);
     ~CScreen();
     uint8_t get_width();
     uint8_t get_height();
-    std::string* get_buff();
+    std::string* getScreenBuff();
+    char getSymbol(uint8_t x, uint8_t y);
+    std::string getColor(uint8_t x, uint8_t y);
     void printBuffer();
     void clearBuffer();
-    void setSymbol(int x, int y, char symbol);
-    char getSymbol(int x, int y);
+    void setPixel(uint8_t x, uint8_t y, char symbol, std::string color);
     void refreshScreen();
-    void setColor(std::string color);
+    void setText(uint8_t x, uint8_t y, std::string text, std::string color);
+    void setUnicodeText(uint8_t x, uint8_t y, std::string text, std::string color);
+    void convetrBuffers();
 };

@@ -41,32 +41,30 @@
 // }
 
 #include "screen.hpp"
+#include <unistd.h>
 
 int main(){
-    CScreen scr(40, 20);
-    scr.setColor(COLORS::GREEN);
-
-    uint8_t x(2), y(10);
+    CScreen scr(80, 20);
+    uint8_t x(1), y(5);
     uint8_t dx(scr.get_width()), dy(scr.get_height());
-
-
+    
     for(int j = 0; j < dy; ++j){
         for(int i = 0; i < dx; ++i){
-            if(i == 0 || j == 0) {scr.setSymbol(i, j, Wall);}
-            if(i == dx - 1 || j == dy - 1) {scr.setSymbol(i, j, Wall);}
+            if(i == 0 || j == 0) {scr.setPixel(i, j, Wall, COLORS::BLUE);}
+            if(i == dx - 1 || j == dy - 1) {scr.setPixel(i, j, Wall, COLORS::BLUE);}
         }
     }
-    std::string* b = scr.get_buff();
     bool flag = true;
-    while(true){
-        scr.setSymbol(x, y, Empty);
+    int n = 0;
+    while(n < 2){
+        scr.setPixel(x, y, Empty, COLORS::DEFAULT);
         x = flag ? x + 1 : x - 1;
-        scr.setSymbol(x, y, Ball);
+        if(x == dx - 2 || x == 1) {flag = !flag; ++n;}
+        scr.setText(1, 5, std::string("0123456789 Test label!!! Test label!!! Test label!!! Test label!!!"), COLORS::YELLOW);
+        scr.setPixel(x, y, Ball, COLORS::GREEN);
         scr.refreshScreen();
-        _sleep(50);
-        if(x == dx - 2 || x == 1) (flag = !flag);
+        usleep(50000); // Задержка в 50 милисекунд
     }
-    
-    scr.setColor(COLORS::DEFAULT);
+
     return 0;
 }
