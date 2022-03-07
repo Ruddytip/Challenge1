@@ -35,10 +35,6 @@ uint8_t CScreen::get_height(){
     return Height;
 }
 
-std::string* CScreen::getScreenBuff(){
-    return sScreenBuffer;
-}
-
 char CScreen::getSymbol(uint8_t x, uint8_t y){
     if(x < 0 || x >= Width) return Error;
     if(y < 0 || y >= Height) return Error;
