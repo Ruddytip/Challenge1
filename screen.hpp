@@ -6,7 +6,7 @@ enum ESymbols{
     Empty = ' ',
     Wall = '#',
     Body = 'S',
-    Ball = '*',
+    Apple = '*',
     Error = '~'
 };
 
