@@ -1,6 +1,6 @@
 #include "screen.hpp" // Подключение класса экрана
 #include "keyboard.hpp" // Для работы клавиатуры
-#include "object.hpp"
+#include "object.hpp" // Класс змейки
 #include <ctime> // Для нахождения времени кадра
 
 int main(){
@@ -19,7 +19,7 @@ int main(){
     }
 
     // =============================================================================
-    unsigned int FPS(0), start(0), end(0), tickrate(0), tick(0);
+    unsigned int FPS(0), start(0), end(0), tickrate(100), tick(0);
 
     bool gameRun = true;
     while(gameRun){
